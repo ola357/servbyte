@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "app",
+      "type": "com.byteworks.servbyte.config.AppConfig",
+      "sourceType": "com.byteworks.servbyte.config.AppConfig"
+    },
+    {
+      "name": "app.jwt-config",
+      "type": "com.byteworks.servbyte.config.AppConfig$JwtConfig",
+      "sourceType": "com.byteworks.servbyte.config.AppConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.jwt-config.expiration-time",
+      "type": "java.lang.Long",
+      "sourceType": "com.byteworks.servbyte.config.AppConfig$JwtConfig"
+    },
+    {
+      "name": "app.jwt-config.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.byteworks.servbyte.config.AppConfig$JwtConfig"
+    }
+  ],
+  "hints": []
+}
