@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import me.iyanuadelekan.paystackjava.core.Customers;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
