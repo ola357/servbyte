@@ -23,7 +23,7 @@ public class Restaurant extends User {
 
     private String name;
 
-    @OneToOne
+    @ManyToOne
     private City city;
 
     private String logoPicPath;

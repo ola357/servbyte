@@ -11,6 +11,11 @@
       "sourceType": "com.byteworks.servbyte.config.AppConfig"
     },
     {
+      "name": "app.payment-config",
+      "type": "com.byteworks.servbyte.config.AppConfig$PaymentConfig",
+      "sourceType": "com.byteworks.servbyte.config.AppConfig"
+    },
+    {
       "name": "app.upload-config",
       "type": "com.byteworks.servbyte.config.AppConfig$UploadConfig",
       "sourceType": "com.byteworks.servbyte.config.AppConfig"
@@ -26,6 +31,16 @@
       "name": "app.jwt-config.secret",
       "type": "java.lang.String",
       "sourceType": "com.byteworks.servbyte.config.AppConfig$JwtConfig"
+    },
+    {
+      "name": "app.payment-config.authorization",
+      "type": "java.lang.String",
+      "sourceType": "com.byteworks.servbyte.config.AppConfig$PaymentConfig"
+    },
+    {
+      "name": "app.payment-config.url",
+      "type": "java.lang.String",
+      "sourceType": "com.byteworks.servbyte.config.AppConfig$PaymentConfig"
     },
     {
       "name": "app.upload-config.base",

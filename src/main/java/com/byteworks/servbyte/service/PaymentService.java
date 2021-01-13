@@ -2,6 +2,10 @@ package com.byteworks.servbyte.service;
 
 import com.byteworks.servbyte.config.AppConfig;
 import com.byteworks.servbyte.request.PaymentRequest;
+import com.byteworks.servbyte.response.PaymentResponse;
+import com.byteworks.servbyte.response.PaymentResponseData;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import me.iyanuadelekan.paystackjava.core.ApiConnection;
@@ -17,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -35,8 +41,10 @@ public class PaymentService {
 
     };
 
+    public ObjectMapper mapper = new ObjectMapper();
 
-    public ResponseEntity<String> pay(PaymentRequest paymentRequest) {
+
+    public PaymentResponse pay(PaymentRequest paymentRequest) {
         String url = appConfig.getPaymentConfig().getUrl();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
@@ -46,11 +54,32 @@ public class PaymentService {
         ResponseEntity<String> response;
         try {
             response = restTemplate.exchange(request, PARAMETERIZED_RESPONSE_TYPE);
+            getObjectFromJson(getDecodedResponse(Objects.requireNonNull(response.getBody())),
+                    PaymentResponse.class);
         } catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
 
-        return response;
+        return getObjectFromJson(getDecodedResponse(Objects.requireNonNull(response.getBody())),
+                PaymentResponse.class);
     }
+    protected String getDecodedResponse(String response) {
+        String decodedResponse = response;
+        if (!response.startsWith("{") && !response.startsWith("[")) {
+            decodedResponse = new String(Base64.getDecoder().decode(response));
+        }
+        return decodedResponse;
+    }
+
+
+    public <T> T getObjectFromJson(String json, Class<T> clazz) {
+        try {
+            return mapper.readValue(json, clazz);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new IllegalStateException(e);
+        }
+    }
+
 
 }
