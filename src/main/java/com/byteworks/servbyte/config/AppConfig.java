@@ -12,6 +12,9 @@ public class AppConfig {
 
     private UploadConfig uploadConfig;
 
+    private PaymentConfig paymentConfig;
+
+
     @Data
     public static class JwtConfig {
 
@@ -20,11 +23,20 @@ public class AppConfig {
         private long expirationTime;
     }
 
+
     @Data
     public static class UploadConfig {
 
         private String base;
     }
 
+
+    @Data
+    public static class PaymentConfig {
+
+        private String url;
+
+        private String authorization;
+    }
 
 }
