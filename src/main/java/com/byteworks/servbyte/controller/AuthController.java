@@ -19,7 +19,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class AuthController extends BaseController{
 
     private final AuthService authService;
@@ -31,7 +31,7 @@ public class AuthController extends BaseController{
 
     @PostMapping("/login")
     public AppResponse<Map<String, String>> login(@Valid @RequestBody LoginRequest request){
-        return getResponse(HttpStatus.CREATED, authService.login(request));
+        return getResponse(HttpStatus.OK, authService.login(request));
     }
 
 }

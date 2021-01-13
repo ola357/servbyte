@@ -3,22 +3,22 @@ package com.byteworks.servbyte.request;
 import com.byteworks.servbyte.model.CompanyType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
+
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignUpRequest {
+public class SignUpRequest extends PictureRequest implements Serializable {
 
     @NotBlank
     private String name;
@@ -37,12 +37,6 @@ public class SignUpRequest {
     private CompanyType companyType = CompanyType.RESTAURANT;
 
     private String city;
-
-    @NotNull
-    private MultipartFile logo;
-
-    @JsonIgnore
-    private String ownerPath;
 
 
 }

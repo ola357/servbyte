@@ -1,6 +1,7 @@
 package com.byteworks.servbyte.service;
 
 import com.byteworks.servbyte.config.AppConfig;
+import com.byteworks.servbyte.request.PictureRequest;
 import com.byteworks.servbyte.request.SignUpRequest;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,9 @@ public class FileStorageService {
     private final AppConfig config;
 
 
-    private String storeAttachment(SignUpRequest vo, Function<Object, String> function)
+    private String storeAttachment(PictureRequest vo, Function<Object, String> function)
             throws IllegalStateException, IOException {
-        MultipartFile file = vo.getLogo();
+        MultipartFile file = vo.getPicture();
         String filePath = null;
         if (file != null) {
             String attachmentDir = function.apply(vo.getOwnerPath());
@@ -32,7 +33,7 @@ public class FileStorageService {
     }
 
 
-    public String storeFileToOwnerPath(SignUpRequest vo) throws IllegalStateException, IOException {
+    public String storeFileToOwnerPath(PictureRequest vo) throws IllegalStateException, IOException {
         return storeAttachment(vo, path -> String.format("%s/%s", config.getUploadConfig().getBase(), path));
     }
 
