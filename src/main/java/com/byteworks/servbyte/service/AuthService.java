@@ -1,9 +1,9 @@
 package com.byteworks.servbyte.service;
 
 import com.byteworks.servbyte.exception.CustomException;
-import com.byteworks.servbyte.model.Role;
-import com.byteworks.servbyte.model.RoleType;
-import com.byteworks.servbyte.model.User;
+import com.byteworks.servbyte.model.*;
+import com.byteworks.servbyte.repository.CityRepository;
+import com.byteworks.servbyte.repository.RestaurantRepository;
 import com.byteworks.servbyte.repository.RoleRepository;
 import com.byteworks.servbyte.repository.UserRepository;
 import com.byteworks.servbyte.request.LoginRequest;
@@ -18,8 +18,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
+
+import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -38,6 +43,12 @@ public class AuthService {
 
     private final RoleRepository roleRepository;
 
+    private final RestaurantRepository restaurantRepository;
+
+    private final CityRepository cityRepository;
+
+    private final FileStorageService fileStorageService;
+
 
     public Map<String, String> login(LoginRequest request) {
 
@@ -51,26 +62,48 @@ public class AuthService {
     }
 
 
-    public Map<String, String> signUp(SignUpRequest request) {
+    @Transactional
+    public Map<String, String> signUp(SignUpRequest request) throws IOException {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new CustomException("email already exist", HttpStatus.CONFLICT);
         }
 
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setName(request.getName());
+        if (request.getCompanyType().equals(CompanyType.RESTAURANT)) {
+            Restaurant restaurant = Objects.requireNonNull(saveRestaurant(request));
+            restaurant.setLogoPicPath(StringUtils.cleanPath(savePicture(request, restaurant)));
+        }
 
-        Role role = roleRepository.findByRoleType(RoleType.ROLE_USER).orElseGet(() -> {
+        return Map.of("message", "user created");
+    }
+
+
+    private Role getRole() {
+        return roleRepository.findByRoleType(RoleType.ROLE_USER).orElseGet(() -> {
             Role userRole = new Role();
             userRole.setRoleType(RoleType.ROLE_USER);
             return roleRepository.save(userRole);
         });
+    }
 
-        user.setRoles(Set.of(role));
 
-        userRepository.save(user);
-        return Map.of("message", "new user created");
+    private Restaurant saveRestaurant(SignUpRequest request) throws IOException {
+
+        Restaurant restaurant = new Restaurant();
+        restaurant.setCity(cityRepository.findByName(request.getCity())
+                .orElseThrow(() -> new IllegalArgumentException("city doesn't exist")));
+        restaurant.setEmail(request.getEmail());
+        restaurant.setPassword(passwordEncoder.encode(request.getPassword()));
+        restaurant.setName(request.getName());
+        restaurant.setRoles(Set.of(getRole()));
+        restaurant.setPhoneNumber(request.getPhoneNumber());
+        return restaurantRepository.save(restaurant);
+
+    }
+
+
+    private String savePicture(SignUpRequest request, User user) throws IOException {
+        request.setOwnerPath(user.getId().toString());
+        return fileStorageService.storeFileToOwnerPath(request);
     }
 
 }

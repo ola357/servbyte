@@ -10,6 +10,8 @@ public class AppConfig {
 
     private JwtConfig jwtConfig;
 
+    private UploadConfig uploadConfig;
+
     @Data
     public static class JwtConfig {
 
@@ -17,5 +19,12 @@ public class AppConfig {
 
         private long expirationTime;
     }
+
+    @Data
+    public static class UploadConfig {
+
+        private String base;
+    }
+
 
 }

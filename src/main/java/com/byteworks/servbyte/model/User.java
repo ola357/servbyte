@@ -15,8 +15,9 @@ import java.util.Set;
 
 @Entity
 @Data
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
     @GeneratedValue
@@ -28,12 +29,12 @@ public class User {
 
     private String password;
 
-    private String phoneNumber;
-
-    private String name;
-
     @ManyToMany
     private Set<Role> roles;
+
+    public User(Long id){
+       setId(id);
+    }
 
 
 }

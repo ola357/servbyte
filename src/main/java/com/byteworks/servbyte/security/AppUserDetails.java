@@ -15,20 +15,18 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AppUserDetails implements UserDetails {
 
-    private Long id;
+    private final Long id;
 
-    private String name;
+    private final String email;
 
-    private String email;
+    private final String password;
 
-    private String password;
-
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public static AppUserDetails build(User user){
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRoleType().name())).collect(
                 Collectors.toList());
-        return new AppUserDetails(user.getId(), user.getName(), user.getEmail(), user.getPassword(), authorities);
+        return new AppUserDetails(user.getId(), user.getEmail(), user.getPassword(), authorities);
     }
 
     @Override
@@ -76,7 +74,4 @@ public class AppUserDetails implements UserDetails {
         return id;
     }
 
-    public String getName(){
-        return name;
-    }
 }
