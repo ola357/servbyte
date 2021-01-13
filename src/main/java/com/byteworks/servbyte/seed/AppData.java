@@ -1,7 +1,9 @@
 package com.byteworks.servbyte.seed;
 
 import com.byteworks.servbyte.model.City;
+import com.byteworks.servbyte.model.DeliveryChannel;
 import com.byteworks.servbyte.repository.CityRepository;
+import com.byteworks.servbyte.repository.DeliveryChannelRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,9 @@ public class AppData implements CommandLineRunner {
 
     private final CityRepository cityRepository;
 
+    private final DeliveryChannelRepository deliveryChannelRepository;
+
+
     @Override
     @SneakyThrows
     public void run(String... args) {
@@ -30,6 +35,11 @@ public class AppData implements CommandLineRunner {
                         .stream()
                         .map(city -> City.builder().name(city).build())
                         .collect(Collectors.toList()));
+
+        deliveryChannelRepository.saveAll(List.of("bike", "car", "boat")
+                .stream()
+                .map(channel -> DeliveryChannel.builder().channel(channel).build())
+                .collect(Collectors.toList()));
 
     }
 }

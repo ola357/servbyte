@@ -1,6 +1,7 @@
 package com.byteworks.servbyte.request;
 
 import com.byteworks.servbyte.model.CompanyType;
+import com.byteworks.servbyte.model.DeliveryChannel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -10,6 +11,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @EqualsAndHashCode(callSuper = true)
@@ -36,8 +39,12 @@ public class SignUpRequest extends PictureRequest implements Serializable {
     @Builder.Default
     private CompanyType companyType = CompanyType.RESTAURANT;
 
+    @JsonIgnore
     private String city;
 
+    @JsonIgnore
+    @Builder.Default
+    private Set<Long> deliveryChannelIds = new HashSet<>();
 
 }
 

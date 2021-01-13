@@ -2,10 +2,7 @@ package com.byteworks.servbyte.service;
 
 import com.byteworks.servbyte.exception.CustomException;
 import com.byteworks.servbyte.model.*;
-import com.byteworks.servbyte.repository.CityRepository;
-import com.byteworks.servbyte.repository.RestaurantRepository;
-import com.byteworks.servbyte.repository.RoleRepository;
-import com.byteworks.servbyte.repository.UserRepository;
+import com.byteworks.servbyte.repository.*;
 import com.byteworks.servbyte.request.LoginRequest;
 import com.byteworks.servbyte.request.SignUpRequest;
 import com.byteworks.servbyte.security.JwtTokenProvider;
@@ -23,9 +20,7 @@ import org.springframework.util.StringUtils;
 import javax.transaction.Transactional;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -46,6 +41,10 @@ public class AuthService {
     private final RestaurantRepository restaurantRepository;
 
     private final CityRepository cityRepository;
+
+    private final DeliveryCompanyRepository deliveryCompanyRepository;
+
+    private final DeliveryChannelRepository deliveryChannelRepository;
 
     private final FileStorageService fileStorageService;
 
@@ -73,6 +72,11 @@ public class AuthService {
             restaurant.setLogoPicPath(StringUtils.cleanPath(savePicture(request, restaurant)));
         }
 
+        if (request.getCompanyType().equals(CompanyType.DELIVERY_COMPANY)) {
+            DeliveryCompany deliveryCompany = Objects.requireNonNull(saveDeliveryCompany(request));
+            deliveryCompany.setLogoPicPath(StringUtils.cleanPath(savePicture(request, deliveryCompany)));
+        }
+
         return Map.of("message", "user created");
     }
 
@@ -86,7 +90,7 @@ public class AuthService {
     }
 
 
-    private Restaurant saveRestaurant(SignUpRequest request) throws IOException {
+    private Restaurant saveRestaurant(SignUpRequest request) {
 
         Restaurant restaurant = new Restaurant();
         restaurant.setCity(cityRepository.findByName(request.getCity())
@@ -97,6 +101,22 @@ public class AuthService {
         restaurant.setRoles(Set.of(getRole()));
         restaurant.setPhoneNumber(request.getPhoneNumber());
         return restaurantRepository.save(restaurant);
+
+    }
+
+
+    private DeliveryCompany saveDeliveryCompany(SignUpRequest request) {
+
+        DeliveryCompany deliveryCompany = new DeliveryCompany();
+        deliveryCompany.setCities(new HashSet<>(cityRepository.findAll()));
+        deliveryCompany.setEmail(request.getEmail());
+        deliveryCompany.setPassword(passwordEncoder.encode(request.getPassword()));
+        deliveryCompany.setName(request.getName());
+        deliveryCompany.setRoles(Set.of(getRole()));
+        deliveryCompany.setPhoneNumber(request.getPhoneNumber());
+        deliveryCompany.setDeliveryChannels(
+                new HashSet<>(deliveryChannelRepository.findAllById(request.getDeliveryChannelIds())));
+        return deliveryCompanyRepository.save(deliveryCompany);
 
     }
 
