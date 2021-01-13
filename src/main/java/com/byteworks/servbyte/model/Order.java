@@ -1,31 +1,34 @@
 package com.byteworks.servbyte.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Restaurant extends User {
+@Builder
+public class Order {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String phoneNumber;
+    private Long restaurantId;
 
-    private String name;
+    private String restaurantName;
 
-    @ManyToOne
-    private City city;
+    @OneToOne
+    private Meal meal;
 
-    private String logoPicPath;
+    @Transient
+    public PaymentRequest buildPaymentRequest(){
+        return PaymentReq
+    }
 
 }

@@ -1,9 +1,11 @@
 package com.byteworks.servbyte.service;
 
 import com.byteworks.servbyte.model.Meal;
+import com.byteworks.servbyte.model.Restaurant;
 import com.byteworks.servbyte.repository.MealRepository;
 import com.byteworks.servbyte.repository.RestaurantRepository;
 import com.byteworks.servbyte.request.MealRequest;
+import com.byteworks.servbyte.response.RestaurantResponse;
 import com.byteworks.servbyte.security.AppUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import org.springframework.util.StringUtils;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -38,6 +42,12 @@ public class RestaurantService {
                 .build();
         mealRepository.save(meal);
         return "meal saved";
+    }
+
+    public List<RestaurantResponse>  findRestaurantsByCity(String city){
+        return restaurantRepository.findRestaurantsByCity_Name(city).stream().map(restaurant -> new RestaurantResponse(
+                restaurant.getId(), restaurant.getPhoneNumber(),restaurant.getName() )).collect(
+                Collectors.toList());
     }
 
 }
