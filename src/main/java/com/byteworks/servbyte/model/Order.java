@@ -1,11 +1,13 @@
 package com.byteworks.servbyte.model;
 
+import com.byteworks.servbyte.request.PaymentRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 
 @Entity
@@ -23,12 +25,12 @@ public class Order {
 
     private String restaurantName;
 
+    @Email
+    private String requesterEmail;
+
     @OneToOne
     private Meal meal;
 
-    @Transient
-    public PaymentRequest buildPaymentRequest(){
-        return PaymentReq
-    }
+
 
 }

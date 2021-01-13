@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantResponse {
+
     private Long restaurantId;
+
     private String phoneNumber;
+
     private String name;
 }

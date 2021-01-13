@@ -36,5 +36,5 @@ app:
   upload-config:
     base: ${java.io.tmpdir}servbyte
   payment-config:
-    url:
-    authorization:
+    url: https://api.paystack.co/transaction/initialize
+    authorization: sk_test_fecc8b2a92aaef67c08a43a23332275a9989ea42
