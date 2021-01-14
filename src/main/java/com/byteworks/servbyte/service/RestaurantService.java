@@ -1,7 +1,6 @@
 package com.byteworks.servbyte.service;
 
 import com.byteworks.servbyte.model.Meal;
-import com.byteworks.servbyte.model.Restaurant;
 import com.byteworks.servbyte.repository.MealRepository;
 import com.byteworks.servbyte.repository.RestaurantRepository;
 import com.byteworks.servbyte.request.MealRequest;
@@ -44,9 +43,9 @@ public class RestaurantService {
         return "meal saved";
     }
 
-    public List<RestaurantResponse>  findRestaurantsByCity(String city){
+    public List<RestaurantResponse> findRestaurantsByCity(String city) {
         return restaurantRepository.findRestaurantsByCity_Name(city).stream().map(restaurant -> new RestaurantResponse(
-                restaurant.getId(), restaurant.getPhoneNumber(),restaurant.getName() )).collect(
+                restaurant.getId(), restaurant.getPhoneNumber(), restaurant.getName())).collect(
                 Collectors.toList());
     }
 

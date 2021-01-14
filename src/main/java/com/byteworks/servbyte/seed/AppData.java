@@ -4,11 +4,9 @@ import com.byteworks.servbyte.model.City;
 import com.byteworks.servbyte.model.DeliveryChannel;
 import com.byteworks.servbyte.repository.CityRepository;
 import com.byteworks.servbyte.repository.DeliveryChannelRepository;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import me.iyanuadelekan.paystackjava.core.Customers;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

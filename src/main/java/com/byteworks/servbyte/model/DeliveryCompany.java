@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DeliveryCompany extends User{
+public class DeliveryCompany extends User {
     @Id
     @GeneratedValue
     private Long id;

@@ -30,7 +30,7 @@ public class DeliveryChannel implements Serializable {
     @ManyToMany
     private Set<DeliveryCompany> deliveryCompanies = new HashSet<>();
 
-    public DeliveryChannel(String channel){
+    public DeliveryChannel(String channel) {
         setChannel(channel);
     }
 

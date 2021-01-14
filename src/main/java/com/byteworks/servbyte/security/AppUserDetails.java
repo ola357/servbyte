@@ -2,7 +2,6 @@ package com.byteworks.servbyte.security;
 
 import com.byteworks.servbyte.model.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,7 @@ public class AppUserDetails implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public static AppUserDetails build(User user){
+    public static AppUserDetails build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRoleType().name())).collect(
                 Collectors.toList());
         return new AppUserDetails(user.getId(), user.getEmail(), user.getPassword(), authorities);
@@ -70,7 +69,7 @@ public class AppUserDetails implements UserDetails {
         return true;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 

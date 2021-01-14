@@ -26,7 +26,7 @@ public class OrderController extends BaseController {
     }
 
     @PostMapping
-    public Map<String, String> orderAMeal(@Valid @RequestBody OrderRequest orderRequest){
+    public Map<String, String> orderAMeal(@Valid @RequestBody OrderRequest orderRequest) {
         return orderService.orderAMeal(orderRequest);
     }
 }

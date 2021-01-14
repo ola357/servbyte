@@ -15,7 +15,7 @@ public class AppAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     @SneakyThrows
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-            AuthenticationException e) {
+                         AuthenticationException e) {
         httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
     }
 }

@@ -40,8 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/h2-console/**").permitAll()
                 .antMatchers("/api/auth/signup", "/api/auth/login").permitAll()
+                .antMatchers("/swagger-ui.html", "/swagger-resources/**").permitAll()
+                .antMatchers("/init/**", "/swagger**", "/v2/**", "/webjars/**", "/configuration/**").permitAll()
                 .antMatchers("/api/order/**").permitAll()
-        .anyRequest().authenticated();
+                .anyRequest().authenticated();
         http.addFilterAfter(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -54,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
+    public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

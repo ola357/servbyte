@@ -2,7 +2,6 @@ package com.byteworks.servbyte.service;
 
 import com.byteworks.servbyte.config.AppConfig;
 import com.byteworks.servbyte.request.PictureRequest;
-import com.byteworks.servbyte.request.SignUpRequest;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

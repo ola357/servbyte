@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
-@EnableConfigurationProperties(value = { AppConfig.class })
+@EnableConfigurationProperties(value = {AppConfig.class})
 public class ServbyteApplication {
 
     public static void main(String[] args) {

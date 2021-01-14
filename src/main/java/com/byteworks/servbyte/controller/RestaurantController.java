@@ -1,7 +1,5 @@
 package com.byteworks.servbyte.controller;
 
-import com.byteworks.servbyte.model.Meal;
-import com.byteworks.servbyte.model.Restaurant;
 import com.byteworks.servbyte.request.MealRequest;
 import com.byteworks.servbyte.response.AppResponse;
 import com.byteworks.servbyte.response.RestaurantResponse;

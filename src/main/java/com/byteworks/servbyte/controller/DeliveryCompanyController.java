@@ -1,6 +1,5 @@
 package com.byteworks.servbyte.controller;
 
-import com.byteworks.servbyte.controller.BaseController;
 import com.byteworks.servbyte.response.AppResponse;
 import com.byteworks.servbyte.service.DeliveryCompanyService;
 import lombok.RequiredArgsConstructor;

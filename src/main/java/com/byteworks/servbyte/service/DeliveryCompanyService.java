@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 public class DeliveryCompanyService {
     private final DeliveryChannelRepository deliveryChannelRepository;
 
-    public List<DeliveryChannel> getAllDeliveryChannels(){
+    public List<DeliveryChannel> getAllDeliveryChannels() {
         return deliveryChannelRepository.findAll();
     }
 

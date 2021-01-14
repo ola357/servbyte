@@ -20,17 +20,17 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
-public class AuthController extends BaseController{
+public class AuthController extends BaseController {
 
     private final AuthService authService;
 
-    @PostMapping(path = "/signup", consumes = { "multipart/form-data" })
+    @PostMapping(path = "/signup", consumes = {"multipart/form-data"})
     public AppResponse<Map<String, String>> signUp(@Valid SignUpRequest request) throws IOException {
         return getResponse(HttpStatus.CREATED, authService.signUp(request));
     }
 
     @PostMapping("/login")
-    public AppResponse<Map<String, String>> login(@Valid @RequestBody LoginRequest request){
+    public AppResponse<Map<String, String>> login(@Valid @RequestBody LoginRequest request) {
         return getResponse(HttpStatus.OK, authService.login(request));
     }
 

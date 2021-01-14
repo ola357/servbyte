@@ -3,15 +3,8 @@ package com.byteworks.servbyte.service;
 import com.byteworks.servbyte.config.AppConfig;
 import com.byteworks.servbyte.request.PaymentRequest;
 import com.byteworks.servbyte.response.PaymentResponse;
-import com.byteworks.servbyte.response.PaymentResponseData;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import me.iyanuadelekan.paystackjava.core.ApiConnection;
-import org.json.JSONObject;
-import me.iyanuadelekan.paystackjava.core.ApiQuery;
-import me.iyanuadelekan.paystackjava.core.Customers;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,8 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -63,6 +54,7 @@ public class PaymentService {
         return getObjectFromJson(getDecodedResponse(Objects.requireNonNull(response.getBody())),
                 PaymentResponse.class);
     }
+
     protected String getDecodedResponse(String response) {
         String decodedResponse = response;
         if (!response.startsWith("{") && !response.startsWith("[")) {

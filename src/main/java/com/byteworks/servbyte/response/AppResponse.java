@@ -4,9 +4,8 @@ import com.byteworks.servbyte.exception.ApiSubError;
 import com.byteworks.servbyte.exception.ApiValidationError;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.validator.internal.engine.path.PathImpl;
-import lombok.Builder;
 import lombok.Data;
+import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -71,7 +70,6 @@ public class AppResponse<T> implements Serializable {
         this.message = message;
         this.data = data;
     }
-
 
 
     private void addSubError(ApiSubError subError) {

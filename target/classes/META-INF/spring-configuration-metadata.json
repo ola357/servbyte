@@ -25,7 +25,8 @@
     {
       "name": "app.jwt-config.expiration-time",
       "type": "java.lang.Long",
-      "sourceType": "com.byteworks.servbyte.config.AppConfig$JwtConfig"
+      "sourceType": "com.byteworks.servbyte.config.AppConfig$JwtConfig",
+      "defaultValue": 0
     },
     {
       "name": "app.jwt-config.secret",

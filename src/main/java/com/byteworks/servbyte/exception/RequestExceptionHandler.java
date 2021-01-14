@@ -44,15 +44,15 @@ public class RequestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     public ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException hmre, HttpHeaders headers, HttpStatus status,
-            WebRequest request) {
+                                                               WebRequest request) {
         AppResponse<?> ar = new AppResponse<>(HttpStatus.BAD_REQUEST);
-        ar.setError("Validation Error: "+hmre.getMostSpecificCause().getLocalizedMessage());
+        ar.setError("Validation Error: " + hmre.getMostSpecificCause().getLocalizedMessage());
         return buildResponseEntity(ar);
     }
 
     @Override
     public ResponseEntity<Object> handleBindException(BindException be, HttpHeaders headers, HttpStatus status,
-            WebRequest request) {
+                                                      WebRequest request) {
         AppResponse<?> ar = new AppResponse<>(HttpStatus.BAD_REQUEST);
         ar.addValidationErrors(be.getFieldErrors());
         ar.setError("Validation Error");
@@ -68,7 +68,7 @@ public class RequestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException mx, HttpHeaders headers,
-            HttpStatus status, WebRequest request) {
+                                                               HttpStatus status, WebRequest request) {
         AppResponse<?> ar = new AppResponse<>(HttpStatus.BAD_REQUEST);
         ar.addValidationError(mx.getBindingResult().getAllErrors());
         ar.setError("Validation Error");

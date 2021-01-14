@@ -18,9 +18,9 @@ public class JwtTokenProvider {
 
     private final AppConfig appConfig;
 
-    public String generateToken(Authentication auth){
+    public String generateToken(Authentication auth) {
         return Jwts.builder()
-                .setSubject(((AppUserDetails)auth.getPrincipal()).getId().toString())
+                .setSubject(((AppUserDetails) auth.getPrincipal()).getId().toString())
                 .setIssuedAt(Date.valueOf(LocalDate.now()))
                 .setExpiration(Date.valueOf(LocalDate.now().plusDays(appConfig.getJwtConfig().getExpirationTime())))
                 .signWith(SignatureAlgorithm.HS512, appConfig.getJwtConfig().getSecret())
